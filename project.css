@@ -111,8 +111,9 @@ pre code, pre code {
 
 .proj-gallery img {
     width: 100%;
-    height: auto;
+    height: 240px;
     display: block;
+    object-fit: contain;
     border-radius: var(--radius);
 }
 
@@ -177,5 +178,9 @@ pre code, pre code {
 
     .proj-video-container {
         width: 100%;
+    }
+
+    .proj-gallery img {
+        height: 180px;
     }
 }
