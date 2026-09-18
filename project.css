@@ -124,7 +124,7 @@ pre code, pre code {
     width: 70%;
     max-width: 600px;
     padding-top: 56.25%;
-    margin: 20px auto;
+    margin: 0 auto 20px;
     border-radius: var(--radius);
     overflow: hidden;
 }
