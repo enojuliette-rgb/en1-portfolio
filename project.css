@@ -111,9 +111,22 @@ pre code, pre code {
 
 .proj-gallery img {
     width: 100%;
-    height: auto;
+    aspect-ratio: 1 / 1;
     max-width: 100%;
     display: block;
+    object-fit: cover;
+    border-radius: var(--radius);
+}
+
+.proj-gallery-placeholder {
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: var(--color-bg-page);
+    color: var(--color-primary);
+    text-align: center;
     border-radius: var(--radius);
 }
 
