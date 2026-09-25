@@ -118,6 +118,10 @@ pre code, pre code {
     border-radius: var(--radius);
 }
 
+.proj-gallery.top-spinner-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .proj-gallery-placeholder {
     aspect-ratio: 1 / 1;
     display: grid;
