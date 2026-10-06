@@ -111,11 +111,15 @@ pre code, pre code {
 
 .proj-gallery img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    height: auto;
     max-width: 100%;
     display: block;
-    object-fit: cover;
     border-radius: var(--radius);
+}
+
+#project-six-gallery img {
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
 }
 
 .proj-gallery iframe {
@@ -124,6 +128,10 @@ pre code, pre code {
     display: block;
     border: 0;
     border-radius: var(--radius);
+}
+
+#project-six-gallery iframe {
+    aspect-ratio: 16 / 9;
 }
 
 .proj-gallery.top-spinner-gallery {
