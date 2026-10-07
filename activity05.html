@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Activity 5: Make the Hub Buttons Control Motors</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./project.css">
+</head>
+<body>
+
+    <!-- Header and Navigation Section -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="./index.html" class="active">Home</a>
+        </nav>
+    </header>
+
+    <!-- Activity Information -->
+    <div class="proj-container">
+
+        <h1 class='proj-header'>Project Portfolio</h1>
+
+        <h2 class='proj-header'>Activity 5: Make the Hub Buttons Control Motors</h2>
+
+        <div class="proj-desc">
+            <p>Programed the two arrow buttons to make the motor turn on and off, as well as change direction. Below is the code I used. </p>
+        </div>
+
+        <h3 class='proj-header'>Photos</h3>
+        <div class="proj-gallery">
+            <!-- Add an image element here for each activity photo saved in the images folder. -->
+        </div>
+
+        <div class="proj-code">
+            <h3>Code:</h3>
+            <pre><code># Large Motor is connected to port A.
+
+from hub import port, button
+import runloop
+import motor
+
+# Set the starting speed and how much each arrow press changes it.
+START_SPEED = 500
+SPEED_CHANGE = 100
+
+# Set the motor speed limits.
+MIN_SPEED = 100
+MAX_SPEED = 1050
+
+async def main():
+    # Keep track of the motor's speed, direction, and running state.
+    speed = START_SPEED
+    direction = 1
+    motor_is_running = False
+
+    # Remember the previous button states so each press counts once.
+    previous_left_pressed = False
+    previous_right_pressed = False
+    previous_both_pressed = False
+
+    # Keep checking the hub buttons.
+    while True:
+        # Check which buttons are currently pressed.
+        left_pressed = button.pressed(button.LEFT) > 0
+        right_pressed = button.pressed(button.RIGHT) > 0
+        both_pressed = left_pressed and right_pressed
+
+        # Pressing both arrows toggles the motor on or off.
+        if both_pressed and not previous_both_pressed:
+            if motor_is_running:
+                motor.stop(port.A)
+                motor_is_running = False
+            else:
+                motor.run(port.A, direction * speed)
+                motor_is_running = True
+
+        # Pressing only the left arrow reverses direction and increases speed.
+        elif left_pressed and not previous_left_pressed and not right_pressed:
+            direction = -direction
+            speed = min(speed + SPEED_CHANGE, MAX_SPEED)
+
+            # Stop before reversing, then run in the new direction.
+            if motor_is_running:
+                motor.stop(port.A)
+                await runloop.sleep_ms(100)
+
+            # Start the motor in the new direction.
+            motor.run(port.A, direction * speed)
+            motor_is_running = True
+
+        # Pressing only the right arrow decreases speed.
+        elif right_pressed and not previous_right_pressed and not left_pressed:
+            speed = max(speed - SPEED_CHANGE, MIN_SPEED)
+
+            # Apply the slower speed if the motor is running.
+            if motor_is_running:
+                motor.run(port.A, direction * speed)
+
+        # Save button states for the next check.
+        previous_left_pressed = left_pressed
+        previous_right_pressed = right_pressed
+        previous_both_pressed = both_pressed
+
+        # Briefly pause before checking the buttons again.
+        await runloop.sleep_ms(10)
+
+runloop.run(main())</code></pre>
+        </div>
+
+    </div>
+    <!-- End Activity Information -->
+
+</body>
+</html>
