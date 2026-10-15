@@ -168,6 +168,10 @@ body {
     border-radius: calc(var(--radius) - 4px);
 }
 
+.project-img-no-crop {
+    object-fit: contain;
+}
+
 /* ***************************** */
 /* Responsive: tablet and mobile */
 /* ***************************** */
